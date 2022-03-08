@@ -32,3 +32,22 @@ export const getCart = async (secret) => {
     return [error.message, []];
   }
 };
+
+export const addLine = async (secret, productId) => {
+  try {
+    const response = await fetch(`${apiURL}/${secret}/items`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `ProductId=${productId}&Quantity=1`,
+    });
+    if (!response.ok) {
+      throw new Error("Could not complete request.");
+    }
+    const data = await response.json();
+    return [null, data];
+  } catch (error) {
+    return [error.message, []];
+  }
+};

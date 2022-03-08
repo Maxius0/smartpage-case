@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import CartList from "../components/cart/CartList";
 
 const ProductList = () => {
   return (
@@ -10,6 +11,7 @@ const ProductList = () => {
       <NavLink to="/">
         <button>Back to start</button>
       </NavLink>
+      <CartList />
     </>
   );
 };

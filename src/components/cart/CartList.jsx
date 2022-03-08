@@ -1,27 +1,28 @@
+import { STORAGE_KEY_CART } from "../../const/storageKeys";
 import { useState, useEffect } from "react";
-import { storageSave, storageRead } from "../../utils/storage";
-import { createCart, getCarts } from "../../api/cart";
-import ProductListItem from "./ProductListItem";
+import { storageRead } from "../../utils/storage";
+import { getCart } from "../../api/cart";
+import CartListItem from "./CartListItem";
 
-const extractProducts = async () => {
-  const [error, products] = await getCarts();
+const extractLines = async () => {
+  const [error, cart] = await getCart(storageRead(STORAGE_KEY_CART));
   if (error !== null) {
     throw error;
   }
-  return products.Products;
+  return cart.OrderLines;
 };
 
-const CartList = () => {
+const CartList = (props) => {
   const [state, setState] = useState({
-    products: [],
+    lines: [],
   });
 
   useEffect(() => {
-    extractProducts()
-      .then((products) => {
+    extractLines()
+      .then((lines) => {
         setState({
           ...state,
-          products: products,
+          lines: lines,
         });
       })
       .catch((error) => {
@@ -32,9 +33,14 @@ const CartList = () => {
   }, []);
 
   return (
-    <div className="product-list">
-      {state.products.map((product) => (
-        <ProductListItem key={product.Id} product={product} />
+    <div className="line-list">
+      <div className="cart-headers">
+        <span>Product:</span>
+        <span>Quantity:</span>
+        <span>Price:</span>
+      </div>
+      {state.lines.map((line) => (
+        <CartListItem key={line.Id} line={line} />
       ))}
     </div>
   );

@@ -35,6 +35,7 @@ const ProductsList = () => {
       {state.products.map((product) => (
         <ProductListItem key={product.Id} product={product} />
       ))}
+      <p>{state.cart}</p>
     </div>
   );
 };
