@@ -8,4 +8,4 @@ Clone or download repository
 `npm start`
 
 # Maintainer
-(https://github.com/Maxius0)[Marius Balslev Samson]
+[Marius Balslev Samson](https://github.com/Maxius0)
